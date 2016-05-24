@@ -87,6 +87,11 @@
               "description":"The name given to the executor task. (defaults to frameworkname-type)",
               "type":"string"
             },
+            "image":{
+              "description":"Which ElasticSearch Docker Image to use",
+              "default":"docker.io:elasticsearch:1.7.5",
+              "type":"string"
+            },
             "timeout":{
               "default":"60000",
               "description":"The maximum executor healthcheck timeout (ms). Must be greater than elasticsearch.executor.healthdelay. Will start new executor after this length of time.",

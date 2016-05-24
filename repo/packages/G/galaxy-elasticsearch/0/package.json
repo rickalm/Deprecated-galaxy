@@ -1,7 +1,7 @@
 {
   "packagingVersion": "2.0",
   "name": "galaxy-elasticsearch",
-  "version": "0.7.0.001",
+  "version": "0.7.0.002",
   "tags": ["elastic", "monitoring", "debug"],
   "framework": true,
   "maintainer": "rickalm@aol.com",
