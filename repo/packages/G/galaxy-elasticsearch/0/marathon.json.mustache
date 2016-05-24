@@ -8,10 +8,26 @@
 
   "requirePorts": true,
 
-  "ports": [
-    {{elasticsearch.port}},
-    {{elasticsearch.http-port}},
-    {{elasticsearch.rpc-port}}
+  "portsDefinitions": [
+    {
+      "name":"webui",
+      "protocol":"tcp",
+      "port":{{elasticsearch.port}},
+      "labels":{}
+    },
+    {
+      "name":"http",
+      "protocol":"tcp",
+      "port":{{elasticsearch.http-port}},
+      "servicePort":9200,
+      "labels":{"VIP_0":"1.1.1.1:9200"}
+    },
+    {
+      "name":"transport",
+      "protocol":"tcp",
+      "port":{{elasticsearch.rpc-port}},
+      "labels":{}
+    },
   ],
 
   "healthChecks": [
@@ -26,21 +42,7 @@
     }
   ],
 
-  "cmd": "/tmp/start-scheduler.sh
-  --zookeeperMesosUrl {{mesos.master}}
-  --zookeeperMesosTimeout {{elasticsearch.zookeeper-mesos-timeout}}
-  --frameworkName {{service.name}}
-  --frameworkFailoverTimeout {{elasticsearch.failover-timeout}}
-  --webUiPort $PORT0
-  --executorName {{service.name}}
-  --executorForcePullImage {{elasticsearch.force-pull-image}}
-  --elasticsearchClusterName {{service.name}}
-  --elasticsearchPorts $PORT1,$PORT2
-  --elasticsearchNodes {{elasticsearch.executor.instances}}
-  --elasticsearchCpu {{elasticsearch.executor.cpu}}
-  --elasticsearchDisk {{elasticsearch.executor.disk}}
-  --elasticsearchRam {{elasticsearch.executor.ram}}
-  --externalVolumeDriver {{elasticsearch.executor.storage-driver}}",
+  "cmd": "/tmp/start-scheduler.sh --webUiPort $PORT0 --useIpAddress true --zookeeperMesosUrl {{mesos.master}} --zookeeperMesosTimeout {{elasticsearch.zookeeper-mesos-timeout}} --frameworkFailoverTimeout {{elasticsearch.failover-timeout}} --frameworkName {{service.name}} --executorName {{service.name}}-exec --elasticsearchClusterName {{service.name}} --executorForcePullImage {{elasticsearch.force-pull-image}} --elasticsearchDockerImage {{elasticsearch.executor.image}} --elasticsearchNodes {{elasticsearch.executor.instances}} --elasticsearchCpu {{elasticsearch.executor.cpu}} --elasticsearchDisk {{elasticsearch.executor.disk}} --elasticsearchRam {{elasticsearch.executor.ram}} {{#elasticsearch.http-port}}{{#elasticsearch.rpc-port}}--elasticsearchPorts $PORT1,$PORT2{{/elasticsearch.rpc-port}}{{/elasticsearch.http-port}} {{#elasticsearch.executor.storage-driver}}--externalVolumeDriver {{elasticsearch.executor.storage-driver}}{{/elasticsearch.executor.storage-driver}}",
 
   "env": {
     "JAVA_OPTS": "{{elasticsearch.scheduler.java-heap}}"
