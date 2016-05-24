@@ -19,11 +19,10 @@
       "name":"http",
       "protocol":"tcp",
       "port":{{elasticsearch.http-port}},
-      "servicePort":9200,
       "labels":{"VIP_0":"1.1.1.1:9200"}
     },
     {
-      "name":"transport",
+      "name":"rpc",
       "protocol":"tcp",
       "port":{{elasticsearch.rpc-port}},
       "labels":{}
