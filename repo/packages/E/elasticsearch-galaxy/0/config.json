@@ -5,6 +5,7 @@
       "properties":{
         "name":{
           "description":"Name of the service to register, used as default for other settings",
+          "default":"elasticsearch-galaxy",
           "type":"string"
         }
       },
@@ -17,7 +18,7 @@
       "description":"Elasticsearch Cluster Configuration properties",
       "properties":{
         "cluster-name":{
-          "description":"Name of the elasticsearch cluster (defaults to service.name)",
+          "description":"Name of the elasticsearch cluster (defaults to {{service.name}})",
           "type":"string"
         },
         "cluster-type":{
@@ -85,20 +86,6 @@
           "default":1,
           "maximum":10,
           "type":"integer"
-        },
-        "framework-name":{
-          "description":"The framework name (defaults to {{service.name}})",
-          "type":"string"
-        },
-        "framework-role":{
-          "description":"The role to locate the appropriate slaves to deploy the framework on, default: *",
-          "default":"*",
-          "type":"string"
-        },
-        "framework-timeout":{
-          "description":"Framework fatal timeout, Mesos will kill all tasks and restart cluster [DANGER]",
-          "default":"2592000.0",
-          "type":"string"
         }
       },
       "required":[
@@ -106,11 +93,16 @@
         "cluster-type",
         "gui-port",
         "master-port",
-        "client-port"
+        "client-port",
+        "healthcheck-startdelay",
+        "healthcheck-interval",
+        "healthcheck-timeout",
+        "healthcheck-maxfail"
       ],
       "type":"object"
     },
     "elastic-master":{
+      "description":"Configs for the Nodes that make up the ElasticSearch Masters (quorum needed)",
       "properties":{
         "instances":{
           "description":"The number of elasticsearch masters to be instantiated.",
@@ -154,6 +146,7 @@
       "type":"object"
     },
     "elastic-client":{
+      "description":"Configure the nodes which users will submit queries to",
       "properties":{
         "instances":{
           "description":"The number of elasticsearch clients (Search Nodes) to be instantiated.",
@@ -192,6 +185,7 @@
       "type":"object"
     },
     "elastic-worker":{
+      "description":"Configure the nodes which data will be stored on",
       "properties":{
         "instances":{
           "description":"The number of elasticsearch workers (Data Nodes) to be instantiated.",
