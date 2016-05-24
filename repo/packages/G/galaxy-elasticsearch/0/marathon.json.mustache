@@ -1,12 +1,18 @@
 {
-  "id": "{{elasticsearch.framework-name}}",
+  "id": "/{{elasticsearch.framework-name}}",
+
   "cpus": {{elasticsearch.scheduler.cpu}},
   "mem": {{elasticsearch.scheduler.ram}},
   "disk": {{elasticsearch.scheduler.disk}},
   "instances": {{elasticsearch.scheduler.instances}},
 
   "requirePorts": true,
-  "ports": [{{elasticsearch.webgui-port}},{{elasticsearch.http-port}},{{elasticsearch.rpc-port}}],
+
+  "ports": [
+    {{elasticsearch.port}},
+    {{elasticsearch.http-port}},
+    {{elasticsearch.rpc-port}}
+  ],
 
   "healthChecks": [
     {
