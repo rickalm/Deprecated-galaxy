@@ -6,7 +6,7 @@
   "disk": {{elasticsearch.scheduler.disk}},
   "instances": {{elasticsearch.scheduler.instances}},
 
-  "portsDefinitions": [
+  "portDefinitions": [
     {
       "port":{{elasticsearch.port}},
       "protocol":"tcp",
@@ -32,7 +32,7 @@
   "healthChecks": [
     {
       "path": "/",
-      "portIndex": 0,
+      "portName": "webui",
       "protocol": "HTTP",
       "gracePeriodSeconds": {{elasticsearch.scheduler.healthcheck-startdelay}},
       "intervalSeconds": {{elasticsearch.scheduler.healthcheck-interval}},
