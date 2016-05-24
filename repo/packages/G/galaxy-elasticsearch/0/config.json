@@ -32,7 +32,7 @@
           "description":"The timeout for connecting to zookeeper for Mesos (ms).",
           "type":"string"
         },
-        "webgui-port":{
+        "port":{
           "default":"0",
           "description":"The port number of the ES-Mesos management front-end. Defaults to 0 (auto-assign).",
           "type":"string"
