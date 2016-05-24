@@ -1,0 +1,8 @@
+[submodule "scripts"]
+	path = scripts
+	url = git@github.com:rickalm/universe.git
+	branch = empty-v2.x-scripts
+[submodule "hooks"]
+	path = hooks
+	url = git@github.com:rickalm/universe.git
+	branch = empty-v2.x-hooks
