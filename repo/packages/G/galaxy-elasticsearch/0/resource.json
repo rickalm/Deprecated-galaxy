@@ -7,6 +7,7 @@
   "assets": {
     "container": {
       "docker": {
+        "rickalm-scheduler": "rickalm/mesos-elastic-scheduler:dev",
         "elasticsearch-scheduler": "mesos/elasticsearch-scheduler:1.0.1",
         "elasticsearch-executor": "brndnmtthws/elasticsearch-executor:0.7.0"
       }
