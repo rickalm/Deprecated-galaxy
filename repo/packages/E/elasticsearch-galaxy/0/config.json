@@ -5,7 +5,7 @@
       "properties":{
         "name":{
           "description":"Name of the service to register, used as default for other settings",
-          "default":"elasticsearch-galaxy",
+          "default":"elasticsearch",
           "type":"string"
         }
       },
