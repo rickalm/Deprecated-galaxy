@@ -6,7 +6,7 @@
   "instances": {{elasticsearch.scheduler.instances}},
 
   "requirePorts": true,
-  "ports": [{{elasticsearch.scheduler.webgui-port}},{{elasticsearch.data-node.http-port}},{{elasticsearch.data-node.rpc-port}}],
+  "ports": [{{elasticsearch.webgui-port}},{{elasticsearch.http-port}},{{elasticsearch.rpc-port}}],
 
   "healthChecks": [
     {
@@ -21,20 +21,20 @@
   ],
 
   "cmd": "/tmp/start-scheduler.sh
-  --zookeeperMesosUrl {{mesos.zookeeper-url}}
-  --zookeeperMesosTimeout {{mesos.zookeeper-timeout-ms}}
+  --zookeeperMesosUrl {{mesos.master}}
+  --zookeeperMesosTimeout {{mesos.zookeeper-mesos-timeout}}
   --frameworkName {{elasticsearch.framework-name}}
-  --frameworkFailoverTimeout {{elasticsearch.framework-timeout-ms}}
+  --frameworkFailoverTimeout {{elasticsearch.failover-timeout}}
   --webUiPort $PORT0
   --executorName {{elastic.framework-name}}
-  --executorForcePullImage {{elasticsearch.data-node.force-pull-image}}
+  --executorForcePullImage {{elasticsearch.force-pull-image}}
   --elasticsearchClusterName {{elasticsearch.framework-name}}
   --elasticsearchPorts "$PORT1,$PORT2"
-  --elasticsearchNodes {{elasticsearch.data-node.instances}}
-  --elasticsearchCpu {{elasticsearch.data-node.cpu}}
-  --elasticsearchDisk {{elasticsearch.data-node.disk}}
-  --elasticsearchRam {{elasticsearch.data-node.ram}}
-  --externalVolumeDriver {{elasticsearch.data-node.storage-driver}}",
+  --elasticsearchNodes {{elasticsearch.executor.instances}}
+  --elasticsearchCpu {{elasticsearch.executor.cpu}}
+  --elasticsearchDisk {{elasticsearch.executor.disk}}
+  --elasticsearchRam {{elasticsearch.executor.ram}}
+  --externalVolumeDriver {{elasticsearch.executor.storage-driver}}",
 
   "env": {
     "JAVA_OPTS": "{{elasticsearch.scheduler.java-heap}}"
@@ -44,9 +44,9 @@
     "type": "DOCKER",
     "docker": {
       "network": "HOST",
-      "oldimage": "{{resource.assets.container.docker.es-scheduler}}",
+      "forcePullImage": {{elasticsearch.force-pull-image}}
       "image": "rickalm/mesos-elastic-scheduler:dev",
-      "forcePullImage": {{elasticsearch.scheduler.force-pull-image}}
+      "oldimage": "{{resource.assets.container.docker.es-scheduler}}",
     }
   },
 
