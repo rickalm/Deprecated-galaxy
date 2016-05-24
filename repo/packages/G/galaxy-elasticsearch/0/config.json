@@ -19,19 +19,16 @@
           "type":"string"
         },
         "port":{
-          "default":"0",
-          "description":"The port number of the ES-Mesos management front-end. Defaults to 0 (auto-assign).",
-          "type":"string"
+          "$ref": "#/definitions/positiveIntegerDefault0",
+          "description":"The port number of the ES-Mesos management front-end. Defaults to 0 (auto-assign)."
         },
         "http-port":{
-          "default":"0",
-          "description":"The HTTP port number of the Elasticsearch Master/Client instances. Defaults to 0 (auto-assign).",
-          "type":"string"
+          "$ref": "#/definitions/positiveIntegerDefault0",
+          "description":"The HTTP port number of the Elasticsearch Master/Client instances. Defaults to 0 (auto-assign)."
         },
         "rpc-port":{
-          "default":"0",
-          "description":"The RPC port number of the Elasticsearch Master/Client instances. Defaults to 0 (auto-assign).",
-          "type":"string"
+          "$ref": "#/definitions/positiveIntegerDefault0",
+          "description":"The RPC port number of the Elasticsearch Master/Client instances. Defaults to 0 (auto-assign)."
         },
         "force-pull-image":{
           "default":true,
