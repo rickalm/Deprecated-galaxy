@@ -3,7 +3,7 @@
     "elasticsearch":{
       "description":"Elasticsearch specific configuration properties",
       "properties":{
-        "framework-name":{
+        "fframework-name":{
           "default":"elasticsearch",
           "description":"The framework name.",
           "type":"string"
@@ -168,7 +168,7 @@
         }
       },
       "required":[
-        "framework-name",
+        "fframework-name",
         "failover-timeout",
         "zookeeper-mesos-timeout",
         "force-pull-image",
