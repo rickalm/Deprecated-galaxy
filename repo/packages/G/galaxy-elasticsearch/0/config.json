@@ -103,6 +103,7 @@
               "type":"string"
             },
             "storage-driver":{
+              "default":"local",
               "description":"Optional docker storage driver",
               "type":"string"
             }
@@ -114,6 +115,7 @@
             "instances",
             "settings-location",
             "health-delay",
+            "storage-driver",
             "timeout"
           ],
           "type":"object"
