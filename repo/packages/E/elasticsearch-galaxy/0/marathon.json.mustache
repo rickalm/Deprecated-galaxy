@@ -14,16 +14,16 @@
       "labels":{}
     },
     {
-      "port":{{elasticsearch.http-port}},
+      "port":0,
       "protocol":"tcp",
-      "name":"http",
-      "labels":{"VIP_0":"1.1.1.1:9200"}
+      "name":"master",
+      "labels":{"VIP_0":"1.1.1.1:{{elasticsearch.master-port}}"}
     },
     {
-      "port":{{elasticsearch.rpc-port}},
+      "port":0,
       "protocol":"tcp",
-      "name":"rpc",
-      "labels":{}
+      "name":"client",
+      "labels":{"VIP_0":"1.1.1.1:{{elasticsearch.client-port}}"}
     }
   ],
 
@@ -41,7 +41,7 @@
     }
   ],
 
-  "cmd": "/tmp/start-scheduler.sh --webUiPort $PORT0 --useIpAddress true --zookeeperMesosUrl {{mesos.master}} --zookeeperMesosTimeout {{elasticsearch.zookeeper-mesos-timeout}} --frameworkFailoverTimeout {{elasticsearch.failover-timeout}} --frameworkRole {{elasticsearch.framework-role}} --executorForcePullImage {{elasticsearch.force-pull-image}} --elasticsearchDockerImage {{elasticsearch.executor.image}} --elasticsearchNodes {{elasticsearch.executor.instances}} --elasticsearchCpu {{elasticsearch.executor.cpu}} --elasticsearchDisk {{elasticsearch.executor.disk}} --elasticsearchRam {{elasticsearch.executor.ram}} {{^elasticsearch.framework-name}}--frameworkName {{service.name}}{{/elasticsearch.framework-name}} {{#elasticsearch.framework-name}}--frameworkName {{elasticsearch.framework-name}}{{/elasticsearch.framework-name}} {{^elasticsearch.executor.name}}--executorName {{service.name}}-exec{{/elasticsearch.executor.name}} {{#elasticsearch.executor.name}}--executorName {{elasticsearch.executor.name}}{{/elasticsearch.executor.name}} {{^elasticsearch.executor.cluster-name}}--elasticsearchClusterName {{service.name}}{{/elasticsearch.executor.cluster-name}} {{#elasticsearch.executor.cluster-name}}--elasticsearchClusterName {{elasticsearch.executor.cluster-name}}{{/elasticsearch.executor.cluster-name}} {{#elasticsearch.http-port}}{{#elasticsearch.rpc-port}}--elasticsearchPorts $PORT1,$PORT2{{/elasticsearch.rpc-port}}{{/elasticsearch.http-port}} {{#elasticsearch.executor.storage-driver}}--externalVolumeDriver {{elasticsearch.executor.storage-driver}}{{/elasticsearch.executor.storage-driver}} {{#elasticsearch.executor.settings-location}}--elasticsearchSettingsLocation {{elasticsearch.executor.settings-location}}{{/elasticsearch.executor.settings-location}}",
+  "cmd": "/tmp/start-scheduler.sh --webUiPort $PORT0 --useIpAddress true --zookeeperMesosUrl {{mesos.master}} --zookeeperMesosTimeout {{elasticsearch.zookeeper-mesos-timeout}} --frameworkFailoverTimeout {{elasticsearch.failover-timeout}} --frameworkRole {{elasticsearch.framework-role}} --executorForcePullImage {{elasticsearch.force-pull-image}} --elasticsearchDockerImage {{elasticsearch.executor.image}} --elasticsearchNodes {{elasticsearch.executor.instances}} --elasticsearchCpu {{elasticsearch.executor.cpu}} --elasticsearchDisk {{elasticsearch.executor.disk}} --elasticsearchRam {{elasticsearch.executor.ram}} {{^elasticsearch.framework-name}}--frameworkName {{service.name}}{{/elasticsearch.framework-name}} {{#elasticsearch.framework-name}}--frameworkName {{elasticsearch.framework-name}}{{/elasticsearch.framework-name}} {{^elasticsearch.executor.name}}--executorName {{service.name}}-exec{{/elasticsearch.executor.name}} {{#elasticsearch.executor.name}}--executorName {{elasticsearch.executor.name}}{{/elasticsearch.executor.name}} {{^elasticsearch.executor.cluster-name}}--elasticsearchClusterName {{service.name}}{{/elasticsearch.executor.cluster-name}} {{#elasticsearch.executor.cluster-name}}--elasticsearchClusterName {{elasticsearch.executor.cluster-name}}{{/elasticsearch.executor.cluster-name}} {{#elasticsearch.executor.storage-driver}}--externalVolumeDriver {{elasticsearch.executor.storage-driver}}{{/elasticsearch.executor.storage-driver}} {{#elasticsearch.executor.settings-location}}--elasticsearchSettingsLocation {{elasticsearch.executor.settings-location}}{{/elasticsearch.executor.settings-location}}",
 
   "env": {
     "JAVA_OPTS": "{{elasticsearch.scheduler.java-heap}}"
