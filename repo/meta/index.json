@@ -4,7 +4,7 @@
       "currentVersion":"0.7.0.001",
       "description":"Alternative DCOS implementation of the Mesos-Elasticsearch framework",
       "framework":true,
-      "name":"elasticsearch",
+      "name":"galaxy-elasticsearch",
       "selected":false,
       "tags":[
         "elastic",
