@@ -1,29 +1,17 @@
 {
   "id": "{{service.name}}",
 
-  "cpus": {{elasticsearch.scheduler.cpu}},
-  "mem": {{elasticsearch.scheduler.ram}},
-  "disk": {{elasticsearch.scheduler.disk}},
-  "instances": {{elasticsearch.scheduler.instances}},
+  "cpus": {{elastic-scheduler.cpu}},
+  "mem": {{elastic-scheduler.ram}},
+  "disk": {{elastic-scheduler.disk}},
+  "instances": {{elastic-scheduler.instances}},
 
   "portDefinitions": [
     {
-      "port":{{elasticsearch.port}},
+      "port":{{elasticsearch.gui-port}},
       "protocol":"tcp",
-      "name":"webui",
+      "name":"gui",
       "labels":{}
-    },
-    {
-      "port":0,
-      "protocol":"tcp",
-      "name":"master",
-      "labels":{"VIP_0":"1.1.1.1:{{elasticsearch.master-port}}"}
-    },
-    {
-      "port":0,
-      "protocol":"tcp",
-      "name":"client",
-      "labels":{"VIP_0":"1.1.1.1:{{elasticsearch.client-port}}"}
     }
   ],
 
@@ -32,19 +20,39 @@
   "healthChecks": [
     {
       "path": "/",
-      "portName": "webui",
+      "portName": "gui",
       "protocol": "HTTP",
-      "gracePeriodSeconds": {{elasticsearch.scheduler.healthcheck-startdelay}},
-      "intervalSeconds": {{elasticsearch.scheduler.healthcheck-interval}},
-      "timeoutSeconds": {{elasticsearch.scheduler.healthcheck-timeout}},
-      "maxConsecutiveFailures": {{elasticsearch.scheduler.healthcheck-maxfail}}
+      "gracePeriodSeconds": {{elastic-scheduler.healthcheck-startdelay}},
+      "intervalSeconds": {{elastic-scheduler.healthcheck-interval}},
+      "timeoutSeconds": {{elastic-scheduler.healthcheck-timeout}},
+      "maxConsecutiveFailures": {{elastic-scheduler.healthcheck-maxfail}}
     }
   ],
 
-  "cmd": "/tmp/start-scheduler.sh --webUiPort $PORT0 --useIpAddress true --zookeeperMesosUrl {{mesos.master}} --zookeeperMesosTimeout {{elasticsearch.zookeeper-mesos-timeout}} --frameworkFailoverTimeout {{elasticsearch.failover-timeout}} --frameworkRole '{{elasticsearch.framework-role}}' --executorForcePullImage {{elasticsearch.force-pull-image}} --elasticsearchDockerImage {{elasticsearch.executor.image}} --elasticsearchNodes {{elasticsearch.executor.instances}} --elasticsearchCpu {{elasticsearch.executor.cpu}} --elasticsearchDisk {{elasticsearch.executor.disk}} --elasticsearchRam {{elasticsearch.executor.ram}} {{^elasticsearch.framework-name}}--frameworkName {{service.name}}{{/elasticsearch.framework-name}} {{#elasticsearch.framework-name}}--frameworkName {{elasticsearch.framework-name}}{{/elasticsearch.framework-name}} {{^elasticsearch.executor.name}}--executorName {{service.name}}-exec{{/elasticsearch.executor.name}} {{#elasticsearch.executor.name}}--executorName {{elasticsearch.executor.name}}{{/elasticsearch.executor.name}} {{^elasticsearch.executor.cluster-name}}--elasticsearchClusterName {{service.name}}{{/elasticsearch.executor.cluster-name}} {{#elasticsearch.executor.cluster-name}}--elasticsearchClusterName {{elasticsearch.executor.cluster-name}}{{/elasticsearch.executor.cluster-name}} {{#elasticsearch.executor.storage-driver}}--externalVolumeDriver {{elasticsearch.executor.storage-driver}}{{/elasticsearch.executor.storage-driver}} {{#elasticsearch.executor.settings-location}}--elasticsearchSettingsLocation {{elasticsearch.executor.settings-location}}{{/elasticsearch.executor.settings-location}}",
+  "cmd": "/tmp/start-scheduler.sh
+  --webUiPort $PORT0
+  --useIpAddress true
+  --zookeeperMesosUrl {{mesos.master}}
+  --zookeeperMesosTimeout {{mesos.timeout}}
+  --frameworkRole '{{elasticsearch.framework-role}}'
+  --frameworkFailoverTimeout {{elasticsearch.failover-timeout}}
+  --executorForcePullImage {{elasticsearch.force-pull-image}}
+  --elasticsearchCpu {{elastic-worker.cpu}}
+  --elasticsearchRam {{elastic-worker.ram}}
+  --elasticsearchDisk {{elastic-worker.disk}}
+  --elasticsearchNodes {{elastic-worker.instances}}
+  --elasticsearchDockerImage {{elastic-worker.image}}
+  {{^elasticsearch.cluster-name}}--elasticsearchClusterName {{service.name}}{{/elasticsearch.cluster-name}}
+  {{#elasticsearch.cluster-name}}--elasticsearchClusterName {{elasticsearch.cluster-name}}{{/elastic-worker.cluster-name}}
+  {{^elasticsearch.framework-name}}--frameworkName {{service.name}}{{/elasticsearch.framework-name}}
+  {{#elasticsearch.framework-name}}--frameworkName {{elasticsearch.framework-name}}{{/elasticsearch.framework-name}}
+  {{^elastic-worker.name}}--executorName {{service.name}}-child{{/elastic-worker.name}}
+  {{#elastic-worker.name}}--executorName {{elastic-worker.name}}{{/elastic-worker.name}}
+  {{#elastic-worker.storage-driver}}--externalVolumeDriver {{elastic-worker.storage-driver}}{{/elastic-worker.storage-driver}}
+  {{#elastic-worker.settings-location}}--elasticsearchSettingsLocation {{elastic-worker.settings-location}}{{/elastic-worker.settings-location}}",
 
   "env": {
-    "JAVA_OPTS": "{{elasticsearch.scheduler.java-heap}}"
+    "JAVA_OPTS": "{{elastic-scheduler.java-heap}}"
   },
 
   "container": {

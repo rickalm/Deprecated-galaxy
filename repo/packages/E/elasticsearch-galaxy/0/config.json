@@ -16,41 +16,30 @@
     "elasticsearch":{
       "description":"Elasticsearch specific configuration properties",
       "properties":{
-        "framework-name":{
-          "description":"The framework name, Defaults to the {{service.name}}",
+        "cluster-name":{
+          "description":"Name of the elasticsearch cluster (defaults to service.name)",
           "type":"string"
         },
-        "framework-role":{
-          "description":"The role to locate the appropriate slaves to deploy the framework on, default: *",
-          "default":"*",
+        "cluster-type":{
+          "description":"Should all nodes be identical (WORKER) or should we launch Master / Data / Client nodes (TIER) ?",
+          "default":"WORKER",
+          "enum":[ "WORKER", "TIER" ],
           "type":"string"
         },
-        "failover-timeout":{
-          "description":"Framework fatal timeout, Mesos will kill all tasks and restart cluster [DANGER]",
-          "default":"2592000.0",
-          "type":"string"
-        },
-        "zookeeper-mesos-timeout":{
-          "description":"The timeout for connecting to zookeeper for Mesos (ms).",
-          "minimum":5000,
-          "default":20000,
-          "maximum":60000,
-          "type":"integer"
-        },
-        "port":{
+        "gui-port":{
           "description":"The port number of the ES-Mesos management front-end. Defaults to 0 (auto-assign).",
           "minimum": 0,
           "default": 0,
           "type":"integer"
         },
         "master-port":{
-          "description":"The HTTP port of the Elasticsearch Master instances. Defaults to 0 (auto-assign).",
+          "description":"The HTTP port to assign to the Elasticsearch Master instances. Defaults to 0 (auto-assign).",
           "minimum": 0,
           "default": 0,
           "type": "integer"
         },
         "client-port":{
-          "description":"The HTTP port of the Elasticsearch Client instances. Defaults to 0 (auto-assign).",
+          "description":"The HTTP port to assign to the Elasticsearch Client instances. Defaults to 0 (auto-assign).",
           "minimum": 0,
           "default": 0,
           "type": "integer"
@@ -59,158 +48,161 @@
           "description":"Forces docker to re-pull the image.",
           "default":true,
           "type":"boolean"
-        },
-        "cluster-type":{
-          "description":"Should all nodes be identical (WORKER) or should we launch Master / Data / Client nodes (TIER) ?",
-          "default":"WORKER",
-          "enum":[ "WORKER", "TIER" ],
-          "type":"string"
-        },
-        "executor":{
-          "properties":{
-            "ram":{
-              "description":"The amount of ram that Mesos shall give give to the executors.",
-              "minimum":512,
-              "default":2048,
-              "type":"integer"
-            },
-            "cpu":{
-              "description":"The amount of CPU resource to allocate to the elasticsearch instance.",
-              "default":"1.0",
-              "type":"string"
-            },
-            "disk":{
-              "description":"The amount of Disk resource to allocate to the elasticsearch instance (MB).",
-              "minimum":1024,
-              "default":1024,
-              "type":"integer"
-            },
-            "instances":{
-              "description":"The number of elasticsearch executor to be instantiated.",
-              "minimum":3,
-              "default":4,
-              "type":"integer"
-            },
-            "cluster-name":{
-              "description":"Name of the elasticsearch cluster (defaults to service.name)",
-              "type":"string"
-            },
-            "settings-location":{
-              "description":"URI to ES yml settings file. If file is copied to all slaves, the file must be in /tmp/config. E.g. 'file:/tmp/config/elasticsearch.yml', 'http://webserver.com/elasticsearch.yml'",
-              "type":"string"
-            },
-            "health-delay":{
-              "description":"The delay between executor healthcheck requests (ms).",
-              "minimum":500,
-              "default":1000,
-              "maximum":10000,
-              "type":"integer"
-            },
-            "name":{
-              "description":"The name given to the executor task. (defaults to {{service.name}}-exec)",
-              "type":"string"
-            },
-            "image":{
-              "description":"Which ElasticSearch Docker Image to use",
-              "default":"docker.io/elasticsearch:1.7.5",
-              "type":"string"
-            },
-            "timeout":{
-              "description":"The maximum executor healthcheck timeout (ms). Must be greater than elasticsearch.executor.healthdelay. Will start new executor after this length of time.",
-              "minimum":20000,
-              "default":60000,
-              "maximum":600000,
-              "type":"integer"
-            },
-            "storage-driver":{
-              "description":"Optional docker storage driver (e.g. local, rexray, flocker), if blank dynamic volume, if local named volume on slave",
-              "type":"string"
-            }
-          },
-          "required":[
-            "ram",
-            "cpu",
-            "disk",
-            "instances",
-            "health-delay",
-            "timeout"
-          ],
-          "type":"object"
-        },
-        "scheduler":{
-          "properties":{
-            "cpu":{
-              "description":"The amount of CPU that Mesos shall allocate to the scheduler.",
-              "default":"0.2",
-              "type":"string"
-            },
-            "ram":{
-              "description":"The amount of RAM that Mesos shall allocate to the scheduler.",
-              "minimum":256,
-              "default":512,
-              "type":"integer"
-            },
-            "disk":{
-              "description":"The amount of Disk that Mesos shall allocate to the scheduler.",
-              "minimum":8,
-              "default":32,
-              "type":"integer"
-            },
-            "instances":{
-              "description":"The number of scheduler instances.",
-              "default":1,
-              "enum":[ 1, 3 ],
-              "type":"integer"
-            },
-            "java-heap":{
-              "description":"The java heap space environmental variables to pass to the scheduler",
-              "default":"-Xms128m -Xmx256m",
-              "type":"string"
-            },
-            "healthcheck-interval":{
-              "description":"The delay between scheduler healthcheck requests (ms).",
-              "minimum":5000,
-              "default":30000,
-              "maximum":60000,
-              "type":"integer"
-            },
-            "healthcheck-timeout":{
-              "description":"The maximum scheduler healthcheck timeout. Will start new scheduler after this length of time.",
-              "minimum":5,
-              "default":10,
-              "maximum":300,
-              "type":"integer"
-            },
-            "healthcheck-startdelay":{
-              "description":"Time to wait for service to startup before healthcheck becomes active",
-              "minimum":60,
-              "default":300,
-              "maximum":600,
-              "type":"integer"
-            },
-            "healthcheck-maxfail":{
-              "description":"Number of failures allowed before restarting service",
-              "minimum":0,
-              "default":1,
-              "maximum":10,
-              "type":"integer"
-            }
-          },
-          "required":[
-            "cpu",
-            "ram",
-            "instances",
-            "java-heap"
-          ],
-          "type":"object"
         }
       },
       "required":[
-        "failover-timeout",
-        "zookeeper-mesos-timeout",
-        "force-pull-image",
-        "executor",
-        "scheduler"
+        "cluster-type",
+        "gui-port",
+        "master-port",
+        "client-port"
+      ],
+      "type":"object"
+    },
+    "elastic-worker":{
+      "properties":{
+        "instances":{
+          "description":"The number of elasticsearch worker to be instantiated.",
+          "minimum":3,
+          "default":4,
+          "type":"integer"
+        },
+        "cpu":{
+          "description":"The amount of CPU resource to allocate to the elasticsearch instance.",
+          "default":"1.0",
+          "type":"string"
+        },
+        "ram":{
+          "description":"The amount of ram that Mesos shall give give to the worker.",
+          "minimum":512,
+          "default":2048,
+          "type":"integer"
+        },
+        "disk":{
+          "description":"The amount of Disk resource to allocate to the elasticsearch instance (MB).",
+          "minimum":1024,
+          "default":1024,
+          "type":"integer"
+        },
+        "settings-location":{
+          "description":"URI to ES yml settings file. If file is copied to all slaves, the file must be in /tmp/config. E.g. 'file:/tmp/config/elasticsearch.yml', 'http://webserver.com/elasticsearch.yml'",
+          "type":"string"
+        },
+        "health-delay":{
+          "description":"The delay between worker healthcheck requests (ms).",
+          "minimum":500,
+          "default":1000,
+          "maximum":10000,
+          "type":"integer"
+        },
+        "image":{
+          "description":"Which ElasticSearch Docker Image to use",
+          "default":"docker.io/elasticsearch:1.7.5",
+          "type":"string"
+        },
+        "timeout":{
+          "description":"The maximum worker healthcheck timeout (ms). Must be greater than elasticsearch.worker.healthdelay. Will start new worker after this length of time.",
+          "minimum":20000,
+          "default":60000,
+          "maximum":600000,
+          "type":"integer"
+        },
+        "storage-driver":{
+          "description":"Optional docker storage driver (e.g. local, rexray, flocker), if blank dynamic volume, if local named volume on slave",
+          "type":"string"
+        },
+        "name":{
+          "description":"The name given to the worker task. (defaults to {{service.name}}-child)",
+          "type":"string"
+        }
+      },
+      "required":[
+        "ram",
+        "cpu",
+        "disk",
+        "instances",
+        "health-delay",
+        "timeout"
+      ],
+      "type":"object"
+    },
+    "elastic-scheduler":{
+      "properties":{
+        "cpu":{
+          "description":"The amount of CPU that Mesos shall allocate to the scheduler.",
+          "default":"0.2",
+          "type":"string"
+        },
+        "ram":{
+          "description":"The amount of RAM that Mesos shall allocate to the scheduler.",
+          "minimum":256,
+          "default":512,
+          "type":"integer"
+        },
+        "disk":{
+          "description":"The amount of Disk that Mesos shall allocate to the scheduler.",
+          "minimum":8,
+          "default":32,
+          "type":"integer"
+        },
+        "instances":{
+          "description":"The number of scheduler instances.",
+          "default":1,
+          "enum":[ 1 ],
+          "type":"integer"
+        },
+        "java-heap":{
+          "description":"The java heap space environmental variables to pass to the scheduler",
+          "default":"-Xms128m -Xmx256m",
+          "type":"string"
+        },
+        "healthcheck-interval":{
+          "description":"Number of Seconds delay between scheduler healthcheck requests.",
+          "minimum":5,
+          "default":30,
+          "maximum":600,
+          "type":"integer"
+        },
+        "healthcheck-timeout":{
+          "description":"Number of Seconds before healthcheck timeout. Will start new scheduler after this length of time.",
+          "minimum":5,
+          "default":10,
+          "maximum":300,
+          "type":"integer"
+        },
+        "healthcheck-startdelay":{
+          "description":"Number of Seconds to wait for service to startup before healthcheck becomes active",
+          "minimum":60,
+          "default":300,
+          "maximum":600,
+          "type":"integer"
+        },
+        "healthcheck-maxfail":{
+          "description":"Number of failures allowed before restarting service",
+          "minimum":0,
+          "default":1,
+          "maximum":10,
+          "type":"integer"
+        },
+        "framework-name":{
+          "description":"The framework name (defaults to {{service.name}})",
+          "type":"string"
+        },
+        "framework-role":{
+          "description":"The role to locate the appropriate slaves to deploy the framework on, default: *",
+          "default":"*",
+          "type":"string"
+        },
+        "framework-timeout":{
+          "description":"Framework fatal timeout, Mesos will kill all tasks and restart cluster [DANGER]",
+          "default":"2592000.0",
+          "type":"string"
+        }
+      },
+      "required":[
+        "cpu",
+        "ram",
+        "instances",
+        "java-heap"
       ],
       "type":"object"
     },
@@ -221,10 +213,18 @@
           "description":"The URL of the Mesos master. This should point to the Mesos ZNode on the Zookeeper machine.",
           "default":"zk://master.mesos:2181/mesos",
           "type":"string"
+        },
+        "timeout":{
+          "description":"The timeout for connecting to Zookeeper for Mesos (ms).",
+          "minimum":5000,
+          "default":20000,
+          "maximum":60000,
+          "type":"integer"
         }
       },
       "required":[
-        "master"
+        "master",
+        "timeout"
       ],
       "type":"object"
     }
