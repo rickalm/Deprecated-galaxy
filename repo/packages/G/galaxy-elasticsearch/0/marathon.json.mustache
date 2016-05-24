@@ -1,5 +1,5 @@
 {
-  "id": "{{service.name}}",
+  "id": "{{framework.name}}",
 
   "cpus": {{elasticsearch.scheduler.cpu}},
   "mem": {{elasticsearch.scheduler.ram}},
@@ -26,7 +26,7 @@
     }
   ],
 
-  "cmd": "/tmp/start-scheduler.sh --zookeeperMesosUrl {{mesos.master}} --zookeeperMesosTimeout {{elasticsearch.zookeeper-mesos-timeout}} --frameworkName {{service.name}} --frameworkFailoverTimeout {{elasticsearch.failover-timeout}} --webUiPort $PORT0 --executorName {{service.name}} --executorForcePullImage {{elasticsearch.force-pull-image}} --elasticsearchClusterName {{service.name}} --elasticsearchPorts $PORT1,$PORT2 --elasticsearchNodes {{elasticsearch.executor.instances}} --elasticsearchCpu {{elasticsearch.executor.cpu}} --elasticsearchDisk {{elasticsearch.executor.disk}} --elasticsearchRam {{elasticsearch.executor.ram}} --externalVolumeDriver {{elasticsearch.executor.storage-driver}}",
+  "cmd": "/tmp/start-scheduler.sh --zookeeperMesosUrl {{mesos.master}} --zookeeperMesosTimeout {{elasticsearch.zookeeper-mesos-timeout}} --frameworkName {{framework.name}} --frameworkFailoverTimeout {{elasticsearch.failover-timeout}} --webUiPort $PORT0 --executorName {{framework.name}} --executorForcePullImage {{elasticsearch.force-pull-image}} --elasticsearchClusterName {{framework.name}} --elasticsearchPorts $PORT1,$PORT2 --elasticsearchNodes {{elasticsearch.executor.instances}} --elasticsearchCpu {{elasticsearch.executor.cpu}} --elasticsearchDisk {{elasticsearch.executor.disk}} --elasticsearchRam {{elasticsearch.executor.ram}} --externalVolumeDriver {{elasticsearch.executor.storage-driver}}",
 
   "env": {
     "JAVA_OPTS": "{{elasticsearch.scheduler.java-heap}}"
@@ -42,7 +42,7 @@
   },
 
   "labels": {
-    "DCOS_PACKAGE_FRAMEWORK_NAME": "{{service.name}}",
-    "DCOS_PACKAGE_NAME": "{{service.name}}"
+    "DCOS_PACKAGE_FRAMEWORK_NAME": "{{framework.name}}",
+    "DCOS_PACKAGE_NAME": "{{framework.name}}"
   }
 }
