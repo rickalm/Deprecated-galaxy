@@ -152,7 +152,7 @@
             },
             "disk":{
               "description":"The amount of Disk that Mesos shall allocate to the scheduler.",
-              "mimimum":8,
+              "minimum":8,
               "default":32,
               "type":"integer"
             },
