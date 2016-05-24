@@ -1,7 +1,7 @@
 {
   "packages":[
     {
-      "currentVersion":"1.0.1.004",
+      "currentVersion":"1.0.1.005",
       "description":"Alternative DCOS implementation of the Mesos-Elasticsearch framework",
       "framework":true,
       "name":"elasticsearch-galaxy",
@@ -12,7 +12,7 @@
         "debug"
       ],
       "versions":{
-        "1.0.1.004":"0"
+        "1.0.1.005":"0"
       }
     }
   ],
