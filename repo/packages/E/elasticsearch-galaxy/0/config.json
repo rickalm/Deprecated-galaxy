@@ -112,7 +112,7 @@
             },
             "image":{
               "description":"Which ElasticSearch Docker Image to use",
-              "default":"docker.io:elasticsearch:1.7.5",
+              "default":"docker.io/elasticsearch:1.7.5",
               "type":"string"
             },
             "timeout":{
