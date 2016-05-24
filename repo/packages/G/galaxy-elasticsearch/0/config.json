@@ -33,7 +33,7 @@
           "type":"string"
         },
         "webgui-port":{
-          "default":"31105",
+          "default":"0",
           "description":"The port number of the ES-Mesos management front-end. Defaults to 0 (auto-assign).",
           "type":"string"
         },
@@ -179,7 +179,6 @@
         "framework-name",
         "failover-timeout",
         "zookeeper-mesos-timeout",
-        "port",
         "force-pull-image",
         "executor",
         "scheduler"
