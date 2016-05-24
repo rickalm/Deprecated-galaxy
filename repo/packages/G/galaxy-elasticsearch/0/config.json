@@ -19,15 +19,21 @@
           "type":"string"
         },
         "port":{
-          "$ref": "#/definitions/positiveIntegerDefault0",
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
           "description":"The port number of the ES-Mesos management front-end. Defaults to 0 (auto-assign)."
         },
         "http-port":{
-          "$ref": "#/definitions/positiveIntegerDefault0",
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
           "description":"The HTTP port number of the Elasticsearch Master/Client instances. Defaults to 0 (auto-assign)."
         },
         "rpc-port":{
-          "$ref": "#/definitions/positiveIntegerDefault0",
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
           "description":"The RPC port number of the Elasticsearch Master/Client instances. Defaults to 0 (auto-assign)."
         },
         "force-pull-image":{
@@ -38,6 +44,7 @@
         "cluster-type":{
           "description":"Should all nodes be identical (WORKER) or should we launch Master / Data / Client nodes (TIER) ?",
           "default":"WORKER",
+          "enum":[ "WORKER", "TIER" ],
           "type":"string"
         },
         "executor":{
