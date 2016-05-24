@@ -1,0 +1,56 @@
+{
+  "id": "{{elasticsearch.framework-name}}",
+  "cpus": {{elasticsearch.scheduler.cpu}},
+  "mem": {{elasticsearch.scheduler.ram}},
+  "disk": {{elasticsearch.scheduler.disk}},
+  "instances": {{elasticsearch.scheduler.instances}},
+
+  "requirePorts": true,
+  "ports": [{{elasticsearch.scheduler.webgui-port}},{{elasticsearch.data-node.http-port}},{{elasticsearch.data-node.rpc-port}}],
+
+  "healthChecks": [
+    {
+      "path": "/",
+      "portIndex": 0,
+      "protocol": "HTTP",
+      "gracePeriodSeconds": {{elasticsearch.scheduler.healthcheck-startdelay}},
+      "intervalSeconds": {{elasticsearch.scheduler.healthcheck-interval}},
+      "timeoutSeconds": {{elasticsearch.scheduler.healthcheck-timeout}},
+      "maxConsecutiveFailures": {{elasticsearch.scheduler.healthcheck-maxfail}}
+    }
+  ],
+
+  "cmd": "/tmp/start-scheduler.sh
+  --zookeeperMesosUrl {{mesos.zookeeper-url}}
+  --zookeeperMesosTimeout {{mesos.zookeeper-timeout-ms}}
+  --frameworkName {{elasticsearch.framework-name}}
+  --frameworkFailoverTimeout {{elasticsearch.framework-timeout-ms}}
+  --webUiPort $PORT0
+  --executorName {{elastic.framework-name}}
+  --executorForcePullImage {{elasticsearch.data-node.force-pull-image}}
+  --elasticsearchClusterName {{elasticsearch.framework-name}}
+  --elasticsearchPorts "$PORT1,$PORT2"
+  --elasticsearchNodes {{elasticsearch.data-node.instances}}
+  --elasticsearchCpu {{elasticsearch.data-node.cpu}}
+  --elasticsearchDisk {{elasticsearch.data-node.disk}}
+  --elasticsearchRam {{elasticsearch.data-node.ram}}
+  --externalVolumeDriver {{elasticsearch.data-node.storage-driver}}",
+
+  "env": {
+    "JAVA_OPTS": "{{elasticsearch.scheduler.java-heap}}"
+  },
+
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "network": "HOST",
+      "oldimage": "{{resource.assets.container.docker.es-scheduler}}",
+      "image": "rickalm/mesos-elastic-scheduler:dev",
+      "forcePullImage": {{elasticsearch.scheduler.force-pull-image}}
+    }
+  },
+
+  "labels": {
+    "DCOS_PACKAGE_FRAMEWORK_NAME": "{{elasticsearch.framework-name}}"
+  }
+}
