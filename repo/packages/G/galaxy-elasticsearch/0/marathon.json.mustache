@@ -30,9 +30,9 @@
     "type": "DOCKER",
     "docker": {
       "network": "HOST",
-      "forcePullImage": {{elasticsearch.force-pull-image}}
       "image": "rickalm/mesos-elastic-scheduler:dev",
       "oldimage": "{{resource.assets.container.docker.es-scheduler}}",
+      "forcePullImage": {{elasticsearch.force-pull-image}}
     }
   },
 
