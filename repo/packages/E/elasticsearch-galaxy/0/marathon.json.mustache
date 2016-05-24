@@ -43,9 +43,9 @@
   --elasticsearchNodes {{elastic-worker.instances}}
   --elasticsearchDockerImage {{elastic-worker.image}}
   {{^elasticsearch.cluster-name}}--elasticsearchClusterName {{service.name}}{{/elasticsearch.cluster-name}}
-  {{#elasticsearch.cluster-name}}--elasticsearchClusterName {{elasticsearch.cluster-name}}{{/elastic-worker.cluster-name}}
-  {{^elasticsearch.framework-name}}--frameworkName {{service.name}}{{/elasticsearch.framework-name}}
-  {{#elasticsearch.framework-name}}--frameworkName {{elasticsearch.framework-name}}{{/elasticsearch.framework-name}}
+  {{#elasticsearch.cluster-name}}--elasticsearchClusterName {{elasticsearch.cluster-name}}{{/elasticsearch.cluster-name}}
+  {{^elastic-scheduler.framework-name}}--frameworkName {{service.name}}{{/elastic-scheduler.framework-name}}
+  {{#elastic-scheduler.framework-name}}--frameworkName {{elastic-scheduler.framework-name}}{{/elastic-scheduler.framework-name}}
   {{^elastic-worker.name}}--executorName {{service.name}}-child{{/elastic-worker.name}}
   {{#elastic-worker.name}}--executorName {{elastic-worker.name}}{{/elastic-worker.name}}
   {{#elastic-worker.storage-driver}}--externalVolumeDriver {{elastic-worker.storage-driver}}{{/elastic-worker.storage-driver}}
