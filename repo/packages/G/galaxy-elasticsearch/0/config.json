@@ -1,19 +1,5 @@
 {
   "properties":{
-    "mesos":{
-      "description":"Mesos specific configuration properties",
-      "properties":{
-        "master":{
-          "default":"zk://master.mesos:2181/mesos",
-          "description":"The URL of the Mesos master. This should point to the Mesos ZNode on the Zookeeper machine.",
-          "type":"string"
-        }
-      },
-      "required":[
-        "master"
-      ],
-      "type":"object"
-    },
     "elasticsearch":{
       "description":"Elasticsearch specific configuration properties",
       "properties":{
@@ -184,6 +170,20 @@
         "force-pull-image",
         "executor",
         "scheduler"
+      ],
+      "type":"object"
+    },
+    "mesos":{
+      "description":"Mesos specific configuration properties",
+      "properties":{
+        "master":{
+          "default":"zk://master.mesos:2181/mesos",
+          "description":"The URL of the Mesos master. This should point to the Mesos ZNode on the Zookeeper machine.",
+          "type":"string"
+        }
+      },
+      "required":[
+        "master"
       ],
       "type":"object"
     }

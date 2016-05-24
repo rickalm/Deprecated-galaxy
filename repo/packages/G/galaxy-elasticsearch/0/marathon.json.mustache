@@ -26,7 +26,7 @@
     }
   ],
 
-  "cmd": "/tmp/start-scheduler.sh --zookeeperMesosUrl {{mesos.master}} --zookeeperMesosTimeout {{mesos.zookeeper-mesos-timeout}} --frameworkName {{elasticsearch.framework-name}} --frameworkFailoverTimeout {{elasticsearch.failover-timeout}} --webUiPort $PORT0 --executorName {{elastic.framework-name}} --executorForcePullImage {{elasticsearch.force-pull-image}} --elasticsearchClusterName {{elasticsearch.framework-name}} --elasticsearchPorts '$PORT1,$PORT2' --elasticsearchNodes {{elasticsearch.executor.instances}} --elasticsearchCpu {{elasticsearch.executor.cpu}} --elasticsearchDisk {{elasticsearch.executor.disk}} --elasticsearchRam {{elasticsearch.executor.ram}} --externalVolumeDriver {{elasticsearch.executor.storage-driver}}",
+  "cmd": "/tmp/start-scheduler.sh --zookeeperMesosUrl {{mesos.master}} --zookeeperMesosTimeout {{elasticsearch.zookeeper-mesos-timeout}} --frameworkName {{elasticsearch.framework-name}} --frameworkFailoverTimeout {{elasticsearch.failover-timeout}} --webUiPort $PORT0 --executorName {{elastic.framework-name}} --executorForcePullImage {{elasticsearch.force-pull-image}} --elasticsearchClusterName {{elasticsearch.framework-name}} --elasticsearchPorts '$PORT1,$PORT2' --elasticsearchNodes {{elasticsearch.executor.instances}} --elasticsearchCpu {{elasticsearch.executor.cpu}} --elasticsearchDisk {{elasticsearch.executor.disk}} --elasticsearchRam {{elasticsearch.executor.ram}} --externalVolumeDriver {{elasticsearch.executor.storage-driver}}",
 
   "env": {
     "JAVA_OPTS": "{{elasticsearch.scheduler.java-heap}}"
