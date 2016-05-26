@@ -52,7 +52,7 @@
     {{^elastic-worker.name}} "--executorName {{service.name}}-worker", {{/elastic-worker.name}}
     {{#elastic-worker.name}} "--executorName {{elastic-worker.name}}", {{/elastic-worker.name}}
     {{#elastic-worker.storage-driver}} "--externalVolumeDriver {{elastic-worker.storage-driver}}", {{/elastic-worker.storage-driver}}
-    {{#elasticsearch.config-file}} "--elasticsearchSettingsLocation {{elasticsearch.config-file}}", {{/elasticsearch.config-file}}"
+    {{#elasticsearch.config-file}} "--elasticsearchSettingsLocation {{elasticsearch.config-file}}", {{/elasticsearch.config-file}}
     "--useIpAddress true"
   ],
 
