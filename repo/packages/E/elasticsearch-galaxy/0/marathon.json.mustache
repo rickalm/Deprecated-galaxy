@@ -6,16 +6,22 @@
   "disk": {{elastic-scheduler.disk}},
   "instances": {{elastic-scheduler.instances}},
 
-  "portMappings": [
-    {
-      "containerPort":8080,
-      "hostPort":0,
-      "protocol":"tcp",
-      "name":"gui"
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "network": "BRIDGE",
+      "image": "{{resource.assets.container.docker.elasticsearch-scheduler}}",
+      "forcePullImage": {{elasticsearch.force-pull-image}}
+      "portMappings": [
+        {
+          "containerPort":8080,
+          "hostPort":0,
+          "protocol":"tcp",
+          "name":"gui"
+        }
+      ],
     }
-  ],
-
-  "requirePorts": true,
+  },
 
   "healthChecks": [
     {
@@ -28,8 +34,6 @@
       "maxConsecutiveFailures": {{elasticsearch.healthcheck-maxfail}}
     }
   ],
-
-  "oldcmd": "/tmp/start-scheduler.sh --webUiPort $PORT0 --useIpAddress true --zookeeperMesosUrl {{mesos.master}} --zookeeperMesosTimeout {{mesos.timeout}} --frameworkRole '{{elastic-scheduler.framework-role}}' --frameworkFailoverTimeout {{elastic-scheduler.framework-timeout}} --executorForcePullImage {{elasticsearch.force-pull-image}} --elasticsearchCpu {{elastic-worker.cpu}} --elasticsearchRam {{elastic-worker.ram}} --elasticsearchDisk {{elastic-worker.disk}} --elasticsearchNodes {{elastic-worker.instances}} --elasticsearchDockerImage {{elasticsearch.image}} {{^elasticsearch.cluster-name}}--elasticsearchClusterName {{service.name}}{{/elasticsearch.cluster-name}} {{#elasticsearch.cluster-name}}--elasticsearchClusterName {{elasticsearch.cluster-name}}{{/elasticsearch.cluster-name}} {{^elastic-scheduler.framework-name}}--frameworkName {{service.name}}{{/elastic-scheduler.framework-name}} {{#elastic-scheduler.framework-name}}--frameworkName {{elastic-scheduler.framework-name}}{{/elastic-scheduler.framework-name}} {{^elastic-worker.name}}--executorName {{service.name}}-worker{{/elastic-worker.name}} {{#elastic-worker.name}}--executorName {{elastic-worker.name}}{{/elastic-worker.name}} {{#elastic-worker.storage-driver}}--externalVolumeDriver {{elastic-worker.storage-driver}}{{/elastic-worker.storage-driver}} {{#elasticsearch.config-file}}--elasticsearchSettingsLocation {{elasticsearch.config-file}}{{/elasticsearch.config-file}}",
 
   "args": [
     "/tmp/start-scheduler.sh",
@@ -57,15 +61,6 @@
 
   "env": {
     "JAVA_OPTS": "{{elastic-scheduler.java-heap}}"
-  },
-
-  "container": {
-    "type": "DOCKER",
-    "docker": {
-      "network": "BRIDGE",
-      "image": "{{resource.assets.container.docker.elasticsearch-scheduler}}",
-      "forcePullImage": {{elasticsearch.force-pull-image}}
-    }
   },
 
   "labels": {
