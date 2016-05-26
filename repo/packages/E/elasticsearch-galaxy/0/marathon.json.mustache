@@ -11,7 +11,7 @@
     "docker": {
       "network": "BRIDGE",
       "image": "{{resource.assets.container.docker.elasticsearch-scheduler}}",
-      "forcePullImage": {{elasticsearch.force-pull-image}}
+      "forcePullImage": {{elasticsearch.force-pull-image}},
       "portMappings": [
         {
           "containerPort":8080,
