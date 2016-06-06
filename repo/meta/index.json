@@ -1,7 +1,7 @@
 {
   "packages":[
     {
-      "currentVersion":"1.0.1.006",
+      "currentVersion":"1.0.1.007",
       "description":"Alternative DCOS implementation of the Mesos-Elasticsearch framework",
       "framework":true,
       "name":"elasticsearch-galaxy",
@@ -12,7 +12,22 @@
         "debug"
       ],
       "versions":{
-        "1.0.1.006":"0"
+        "1.0.1.007":"0"
+      }
+    },
+    {
+      "currentVersion":"2.5.2-0.1.9",
+      "description":"Hadoop Distributed File System (HDFS), Highly Available",
+      "framework":true,
+      "name":"hdfs-galaxy",
+      "selected":false,
+      "tags":[
+        "filesystem",
+        "hadoop",
+        "analytics"
+      ],
+      "versions":{
+        "2.5.2-0.1.9":"3"
       }
     }
   ],
