@@ -39,6 +39,8 @@
     "MESOS_HDFS_JRE_URL":"{{resource.assets.uris.jre-tar-gz}}"
   },
   "cmd":"export JAVA_HOME=$MESOS_DIRECTORY/jre1.7.0_76 && cd hdfs-mesos-0.1.9 && ./bin/hdfs-mesos",
+  "portDefinitions": [
+  ],
   "uris":[
     "{{resource.assets.uris.hdfs-mesos-scheduler}}",
     "{{resource.assets.uris.jre-tar-gz}}"
