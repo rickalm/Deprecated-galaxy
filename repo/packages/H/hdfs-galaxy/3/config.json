@@ -52,7 +52,7 @@
       "type":"object",
       "properties":{
         "cpus":{
-          "default":1,
+          "default":0.25,
           "description":"CPU shares to allocate to each journal node instance.",
           "minimum":0.1,
           "type":"number"
@@ -80,7 +80,7 @@
       "type":"object",
       "properties":{
         "cpus":{
-          "default":1,
+          "default":0.5,
           "description":"CPU shares to allocate to each name node instance.",
           "minimum":0.1,
           "type":"number"
@@ -89,11 +89,11 @@
           "description":"The amount of heap memory for the name node.",
           "type":"integer",
           "default":4096,
-          "minimum":1024
+          "minimum":4096
         },
         "count":{
           "default":2,
-          "description":"Number of journal node instances to run.",
+          "description":"Number of name node instances to run.",
           "minimum":2,
           "type":"integer"
         }
@@ -109,7 +109,7 @@
       "type":"object",
       "properties":{
         "cpus":{
-          "default":1,
+          "default":0.5,
           "description":"CPUs",
           "minimum":0.1,
           "type":"number"
@@ -117,7 +117,8 @@
         "mem":{
           "description":"Memory in MB",
           "type":"integer",
-          "default":1024
+          "default":1024,
+          "minimum":1024
         },
         "disk-size":{
           "description":"The amount of disk space for the data node.",
