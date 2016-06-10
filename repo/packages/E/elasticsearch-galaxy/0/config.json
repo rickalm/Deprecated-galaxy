@@ -1,0 +1,311 @@
+{
+  "properties":{
+    "service":{
+      "description":"Service configuration",
+      "properties":{
+        "name":{
+          "description":"Name of the service to register, used as default for other settings",
+          "default":"elasticsearch",
+          "type":"string"
+        }
+      },
+      "required":[
+        "name"
+      ],
+      "type":"object"
+    },
+    "elasticsearch":{
+      "description":"Elasticsearch Cluster Configuration properties",
+      "properties":{
+        "cluster-name":{
+          "description":"Name of the elasticsearch cluster (defaults to {{service.name}})",
+          "type":"string"
+        },
+        "cluster-type":{
+          "description":"Should all nodes be identical (WORKER) or should we launch Master / Data / Client nodes (TIER) ?",
+          "default":"WORKER",
+          "enum":[ "WORKER", "TIER" ],
+          "type":"string"
+        },
+        "gui-port":{
+          "description":"The port number of the ES-Mesos management front-end. Defaults to 0 (auto-assign).",
+          "minimum": 0,
+          "default": 0,
+          "type":"integer"
+        },
+        "master-port":{
+          "description":"The public HTTP port to assign to the Elasticsearch Master instances. Defaults to 0 (auto-assign).",
+          "minimum": 0,
+          "default": 0,
+          "type": "integer"
+        },
+        "client-port":{
+          "description":"The public HTTP port to assign to the Elasticsearch Client instances. Defaults to 0 (auto-assign).",
+          "minimum": 0,
+          "default": 0,
+          "type": "integer"
+        },
+        "config-file":{
+          "description":"URI to ES yml config file. If file is copied to all slaves, the file must be in /tmp/config. E.g. 'file:/tmp/config/elasticsearch.yml', 'http://webserver.com/elasticsearch.yml'",
+          "type":"string"
+        },
+        "image":{
+          "description":"Which ElasticSearch Docker Image to use",
+          "default":"docker.io/elasticsearch:1.7.5",
+          "type":"string"
+        },
+        "force-pull-image":{
+          "description":"Forces docker to re-pull the image.",
+          "default":true,
+          "type":"boolean"
+        },
+        "healthcheck-startdelay":{
+          "description":"Number of Seconds to wait for service to startup before healthcheck becomes active",
+          "minimum":60,
+          "default":300,
+          "maximum":600,
+          "type":"integer"
+        },
+        "healthcheck-interval":{
+          "description":"How often to perform a healthcheck on the service",
+          "minimum":5,
+          "default":30,
+          "maximum":600,
+          "type":"integer"
+        },
+        "healthcheck-timeout":{
+          "description":"Number of Seconds to wait for a healthcheck before giving up.",
+          "minimum":5,
+          "default":10,
+          "maximum":300,
+          "type":"integer"
+        },
+        "healthcheck-maxfail":{
+          "description":"Number of failures allowed before restarting service",
+          "minimum":0,
+          "default":1,
+          "maximum":10,
+          "type":"integer"
+        }
+      },
+      "required":[
+        "image",
+        "cluster-type",
+        "gui-port",
+        "master-port",
+        "client-port",
+        "healthcheck-startdelay",
+        "healthcheck-interval",
+        "healthcheck-timeout",
+        "healthcheck-maxfail"
+      ],
+      "type":"object"
+    },
+    "elastic-master":{
+      "description":"Configs for the Nodes that make up the ElasticSearch Masters (quorum needed)",
+      "properties":{
+        "instances":{
+          "description":"The number of elasticsearch masters to be instantiated.",
+          "minimum":1,
+          "default":3,
+          "maximum":5,
+          "type":"integer"
+        },
+        "cpu":{
+          "description":"The amount of CPU allocated to each master instance.",
+          "default":"1.0",
+          "type":"string"
+        },
+        "ram":{
+          "description":"The amount of RAM allocated to each master instance.",
+          "minimum":256,
+          "default":512,
+          "type":"integer"
+        },
+        "disk":{
+          "description":"The amount of Disk resource to allocate to the elasticsearch instance (MB).",
+          "minimum":64,
+          "default":1024,
+          "type":"integer"
+        },
+        "storage-driver":{
+          "description":"Optional docker storage driver (e.g. local, rexray, flocker), if blank dynamic volume, if local named volume on slave",
+          "type":"string"
+        },
+        "name":{
+          "description":"The name given to the worker task. (defaults to {{service.name}}-master)",
+          "type":"string"
+        }
+      },
+      "required":[
+        "ram",
+        "cpu",
+        "disk",
+        "instances"
+      ],
+      "type":"object"
+    },
+    "elastic-client":{
+      "description":"Configure the nodes which users will submit queries to",
+      "properties":{
+        "instances":{
+          "description":"The number of elasticsearch clients (Search Nodes) to be instantiated.",
+          "minimum":1,
+          "default":3,
+          "type":"integer"
+        },
+        "cpu":{
+          "description":"The amount of CPU allocated to each master instance.",
+          "default":"2.0",
+          "type":"string"
+        },
+        "ram":{
+          "description":"The amount of RAM allocated to each master instance.",
+          "minimum":1024,
+          "default":1024,
+          "type":"integer"
+        },
+        "disk":{
+          "description":"The amount of Disk resource to allocate to the elasticsearch instance (MB).",
+          "minimum":64,
+          "default":1024,
+          "type":"integer"
+        },
+        "name":{
+          "description":"The name given to the worker task. (defaults to {{service.name}}-client)",
+          "type":"string"
+        }
+      },
+      "required":[
+        "ram",
+        "cpu",
+        "disk",
+        "instances"
+      ],
+      "type":"object"
+    },
+    "elastic-worker":{
+      "description":"Configure the nodes which data will be stored on",
+      "properties":{
+        "instances":{
+          "description":"The number of elasticsearch workers (Data Nodes) to be instantiated.",
+          "minimum":3,
+          "default":4,
+          "type":"integer"
+        },
+        "cpu":{
+          "description":"The amount of CPU allocated to each worker instance.",
+          "default":"3.0",
+          "type":"string"
+        },
+        "ram":{
+          "description":"The amount of RAM allocated to each worker instance.",
+          "minimum":512,
+          "default":2048,
+          "type":"integer"
+        },
+        "disk":{
+          "description":"The amount of Disk resource to allocate to the elasticsearch instance (MB). If using a storage driver then dont bother setting this value very high (e.g. 64mb)",
+          "minimum":64,
+          "default":1024,
+          "type":"integer"
+        },
+        "storage-driver":{
+          "description":"Optional docker storage driver (e.g. local, rexray, flocker), if blank dynamic volume, if local named volume on slave",
+          "type":"string"
+        },
+        "name":{
+          "description":"The name given to the worker task. (defaults to {{service.name}}-worker)",
+          "type":"string"
+        }
+      },
+      "required":[
+        "ram",
+        "cpu",
+        "disk",
+        "instances"
+      ],
+      "type":"object"
+    },
+    "elastic-scheduler":{
+      "properties":{
+        "cpu":{
+          "description":"The amount of CPU that Mesos shall allocate to the scheduler.",
+          "default":"0.2",
+          "type":"string"
+        },
+        "ram":{
+          "description":"The amount of RAM that Mesos shall allocate to the scheduler.",
+          "minimum":256,
+          "default":512,
+          "type":"integer"
+        },
+        "disk":{
+          "description":"The amount of Disk that Mesos shall allocate to the scheduler.",
+          "minimum":8,
+          "default":32,
+          "type":"integer"
+        },
+        "instances":{
+          "description":"The number of scheduler instances.",
+          "default":1,
+          "enum":[ 1 ],
+          "type":"integer"
+        },
+        "java-heap":{
+          "description":"The java heap space environmental variables to pass to the scheduler",
+          "default":"-Xms128m -Xmx256m",
+          "type":"string"
+        },
+        "framework-name":{
+          "description":"The framework name (defaults to {{service.name}})",
+          "type":"string"
+        },
+        "framework-role":{
+          "description":"The role to locate the appropriate slaves to deploy the framework on, default: *",
+          "default":"*",
+          "type":"string"
+        },
+        "framework-timeout":{
+          "description":"Framework fatal timeout, Mesos will kill all tasks and restart cluster [DANGER]",
+          "default":"2592000.0",
+          "type":"string"
+        }
+      },
+      "required":[
+        "cpu",
+        "ram",
+        "instances",
+        "java-heap"
+      ],
+      "type":"object"
+    },
+    "mesos":{
+      "description":"Mesos specific configuration properties",
+      "properties":{
+        "master":{
+          "description":"The URL of the Mesos master. This should point to the Mesos ZNode on the Zookeeper machine.",
+          "default":"zk://master.mesos:2181/mesos",
+          "type":"string"
+        },
+        "timeout":{
+          "description":"The timeout for connecting to Zookeeper for Mesos (ms).",
+          "minimum":5000,
+          "default":20000,
+          "maximum":60000,
+          "type":"integer"
+        }
+      },
+      "required":[
+        "master",
+        "timeout"
+      ],
+      "type":"object"
+    }
+  },
+  "required":[
+    "service",
+    "mesos",
+    "elasticsearch"
+  ]
+}
