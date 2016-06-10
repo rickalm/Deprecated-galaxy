@@ -78,9 +78,10 @@
 {{/security.ssl.enabled}}
     },
     "uris": [
-    {{#hdfs.config-url}}
-    "{{hdfs.config-url}}/hdfs-site.xml",
-    "{{hdfs.config-url}}/core-site.xml"
-    {{/hdfs.config-url}}
+      "{{resource.assets.uris.jre-tar-gz}}",
+      {{#hdfs.config-url}}
+        "{{hdfs.config-url}}/hdfs-site.xml",
+        "{{hdfs.config-url}}/core-site.xml"
+      {{/hdfs.config-url}}
     ]
 }
