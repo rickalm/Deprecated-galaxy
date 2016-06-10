@@ -1,4 +1,20 @@
 {
-  "packages":[],
+  "packages":[
+    {
+      "currentVersion":"2.5.2-0.1.9a",
+      "description":"Hadoop Distributed File System (HDFS), Highly Available",
+      "framework":true,
+      "name":"hdfs-galaxy",
+      "selected":false,
+      "tags":[
+        "filesystem",
+        "hadoop",
+        "analytics"
+      ],
+      "versions":{
+        "2.5.2-0.1.9a":"3"
+      }
+    }
+  ],
   "version":"2.0.0-rc2"
 }
