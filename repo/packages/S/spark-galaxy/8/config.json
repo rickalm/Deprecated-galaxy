@@ -165,7 +165,7 @@
             "properties": {
                 "config-url": {
                     "type": "string",
-                    "default": "http://leader.mesos/ui/hdfs",
+                    "default": "http://leader.mesos/service/hdfs",
                     "description": "Base URL that serves HDFS config files (hdfs-site.xml, core-site.xml).  If not set, DCOS Spark will use its default configuration and read from DCOS HDFS."
                 }
             }
