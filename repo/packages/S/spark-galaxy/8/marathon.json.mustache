@@ -64,7 +64,7 @@
     ],
     "labels": {
 {{#hdfs.config-url}}
-        "SPARK_HDFS_CONFIG_URL": "{{hdfs.config-url}}",
+        "SPARK_HDFS_CONFIG_URL": "{{hdfs.config-url}}/config",
 {{/hdfs.config-url}}
         "SPARK_URI": "{{service.spark-dist-uri}}",
         "DCOS_PACKAGE_FRAMEWORK_NAME": "{{service.name}}",
@@ -80,8 +80,8 @@
     "uris": [
       "{{resource.assets.uris.jre-tar-gz}}",
       {{#hdfs.config-url}}
-        "{{hdfs.config-url}}/hdfs-site.xml",
-        "{{hdfs.config-url}}/core-site.xml"
+        "{{hdfs.config-url}}/config/hdfs-site.xml",
+        "{{hdfs.config-url}}/config/core-site.xml"
       {{/hdfs.config-url}}
     ]
 }
