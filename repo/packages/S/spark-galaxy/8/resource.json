@@ -1,6 +1,9 @@
 {
   "assets": {
     "container": {
+      "uris": {
+        "jre-tar-gz": "https://downloads.mesosphere.com/java/jre-7u76-linux-x64.tar.gz"
+      },
       "docker": {
         "uptake_spark_docker": "rickalm/dcos-spark:1.0.0-1.6.1-2",
         "spark_docker": "mesosphere/spark:1.0.0-1.6.1-2"
