@@ -80,6 +80,7 @@
     "uris": [
       "{{resource.assets.uris.jre-tar-gz}}",
       {{#hdfs.config-url}}
+        "{{hdfs.config-url}}/resources/hdfs-mesos-executor.tgz",
         "{{hdfs.config-url}}/config/hdfs-site.xml",
         "{{hdfs.config-url}}/config/core-site.xml"
       {{/hdfs.config-url}}
