@@ -16,6 +16,21 @@
       }
     },
     {
+      "currentVersion":"1.0.0",
+      "description":"ZooKeeper co-process for instance monitoring, backup/recovery, cleanup and visualization.",
+      "framework":false,
+      "name":"exhibitor-galaxy",
+      "selected":false,
+      "tags":[
+        "zookeeper",
+        "exhibitor"
+      ],
+      "versions":{
+        "0.8.1":"0",
+        "1.0.0":"1"
+      }
+    },
+    {
       "currentVersion":"2.5.2-0.1.9a",
       "description":"Hadoop Distributed File System (HDFS), Highly Available",
       "framework":true,
