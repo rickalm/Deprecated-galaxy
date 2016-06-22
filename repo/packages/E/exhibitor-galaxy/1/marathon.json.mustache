@@ -46,5 +46,9 @@
     "EXHIBITOR_JVM_OPTS": "{{exhibitor.jvm_opts}}",
     "ZK_JVM_OPTS": "{{exhibitor.zookeeper.jvm_opts}}"
   },
-  "cmd": "/exhibitor-wrapper -c zookeeper --headingtext \"{{exhibitor.app-id}}\" --zkconfigconnect {{exhibitor.zk_servers}} --zkconfigzpath \"/exhibitor-dcos{{exhibitor.app-id}}\""
+  "upgradeStrategy": {
+    "minimumHealthCapacity": 0,
+    "maximumOverCapacity": 0
+  },
+  "cmd": "/exhibitor-wrapper -c zookeeper --hostname $(/opt/mesosphere/bin/detect_ip) --headingtext \"{{exhibitor.app-id}}\" --zkconfigconnect {{exhibitor.zk_servers}} --zkconfigzpath \"/exhibitor-dcos{{exhibitor.app-id}}\""
 }
