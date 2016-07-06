@@ -1,5 +1,5 @@
 {
-  "id": "{{exhibitor.app-id}}",
+  "id": "/{{service.name}}",
   "cpus": {{exhibitor.cpus}},
   "mem": {{exhibitor.mem}},
   "instances": {{exhibitor.instances}},
@@ -50,5 +50,5 @@
     "minimumHealthCapacity": 0,
     "maximumOverCapacity": 0
   },
-  "cmd": "/exhibitor-wrapper -c zookeeper --hostname $LIBPROCESS_IP --headingtext \"{{exhibitor.app-id}}\" --zkconfigconnect {{exhibitor.zk_servers}} --zkconfigzpath \"/exhibitor-dcos{{exhibitor.app-id}}\""
+  "cmd": "/exhibitor-wrapper -c zookeeper --hostname $LIBPROCESS_IP --headingtext \"{{service.name}}\" --zkconfigconnect {{exhibitor.zk_servers}} --zkconfigzpath \"/exhibitor-dcos/{{service.name}}\""
 }
