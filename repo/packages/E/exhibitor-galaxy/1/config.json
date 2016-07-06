@@ -1,14 +1,24 @@
 {
   "properties": {
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Service Properties",
+      "properties": {
+        "name": {
+          "default": "exhibitor-dcos",
+          "description": "Name of the Exhibitor task in Marathon",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+    },
     "exhibitor": {
       "additionalProperties": false,
       "description": "Exhibitor specific configuration properties",
       "properties": {
-        "app-id": {
-          "default": "/exhibitor-dcos",
-          "description": "Name of the Exhibitor task in Marathon",
-          "type": "string"
-        },
         "cpus": {
           "description": "CPU shares to allocate to each Exhibitor instance.",
           "default": 1,
@@ -86,7 +96,6 @@
         }
       },
       "required": [
-        "app-id",
         "cpus",
         "http-port",
         "instances",
