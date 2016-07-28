@@ -46,7 +46,7 @@
       }
     },
     {
-      "currentVersion":"1.0.0-1.6.1-2",
+      "currentVersion":"1.0.0-1.6.1-2-001",
       "description":"Spark is a fast and general cluster computing system for Big Data.  Documentation: https://docs.mesosphere.com/usage/managing-services/spark/",
       "framework":false,
       "name":"spark-galaxy",
@@ -58,7 +58,7 @@
         "analytics"
       ],
       "versions":{
-        "1.0.0-1.6.1-2":"8"
+        "1.0.0-1.6.1-2-001":"8"
       }
     }
   ],
