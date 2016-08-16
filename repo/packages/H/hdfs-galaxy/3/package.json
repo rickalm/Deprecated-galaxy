@@ -1,7 +1,7 @@
 {
   "packagingVersion": "2.0",
   "name": "hdfs-galaxy",
-  "version": "2.5.2-0.1.9a",
+  "version": "2.5.2-0.1.9b",
   "scm": "https://github.com/mesosphere/hdfs.git",
   "maintainer": "support@mesosphere.io",
   "description": "Hadoop Distributed File System (HDFS), Highly Available",
