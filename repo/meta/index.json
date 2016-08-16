@@ -31,7 +31,7 @@
       }
     },
     {
-      "currentVersion":"2.5.2-0.1.9a",
+      "currentVersion":"2.5.2-0.1.9b",
       "description":"Hadoop Distributed File System (HDFS), Highly Available",
       "framework":true,
       "name":"hdfs-galaxy",
@@ -42,7 +42,7 @@
         "analytics"
       ],
       "versions":{
-        "2.5.2-0.1.9a":"3"
+        "2.5.2-0.1.9b":"3"
       }
     },
     {
