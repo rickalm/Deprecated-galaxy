@@ -5,7 +5,7 @@
     },
     "container": {
       "docker": {
-        "uptake_spark_docker": "rickalm/dcos-spark:1.0.0-1.6.1-2-001",
+        "uptake_spark_docker": "uptake/dcos-spark:1.0.0-1.6.1-2-001",
         "spark_docker": "mesosphere/spark:1.0.0-1.6.1-2"
       }
     }
