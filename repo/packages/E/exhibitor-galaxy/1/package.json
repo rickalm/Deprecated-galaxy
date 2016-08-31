@@ -1,7 +1,7 @@
 {
   "packagingVersion": "2.0",
   "name": "exhibitor-galaxy",
-  "version": "1.0.0.005",
+  "version": "1.0.0.006",
   "scm": "https://github.com/netflix/exhibitor",
   "maintainer": "devops@uptake.com",
   "description": "ZooKeeper co-process for instance monitoring, backup/recovery, cleanup and visualization.",
