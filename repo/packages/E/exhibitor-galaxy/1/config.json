@@ -1,5 +1,6 @@
 {
   "properties": {
+    "type": "object",
     "service": {
       "type": "object",
       "additionalProperties": false,
@@ -16,6 +17,7 @@
       ]
     },
     "exhibitor": {
+      "type": "object",
       "additionalProperties": false,
       "description": "Exhibitor specific configuration properties",
       "properties": {
@@ -52,41 +54,6 @@
           "description": "Parent ZooKeeper URL for storing state. The framework name is joined to the path of this value. Format: zk://host1:port1,host2:port2,.../path",
           "default": "zk:/master.mesos:2181/",
           "type": "string"
-        },
-        "zookeeper": {
-          "description": "ZooKeeper specific configuration properties",
-          "properties": {
-            "jvm_opts": {
-              "description": "JVM opts for Exhibitor",
-              "default": "-Xmx1G -Xms1G -XX:+PrintCommandLineFlags -XX:+PrintGC -XX:+PrintGCCause -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintTenuringDistribution -XX:+PrintAdaptiveSizePolicy -XX:+AlwaysPreTouch -Xss512k",
-              "type": "string"
-            },
-            "client-port": {
-              "description": "The port clients use to talk to the zookeeper cluster.",
-              "default": 2121,
-              "minimum": 1,
-              "type": "integer"
-            },
-            "peer-port": {
-              "description": "The port zookeeper peers talk with eachother on.",
-              "default": 2888,
-              "minimum": 1,
-              "type": "integer"
-            },
-            "leader-port": {
-              "description": "The port zookeeper peers talk to the leader on.",
-              "default": 3888,
-              "minimum": 1,
-              "type": "integer"
-            }
-          },
-          "required": [
-            "jvm_opts",
-            "client-port",
-            "peer-port",
-            "leader-port"
-          ],
-          "type":"object"
         }
       },
       "required": [
@@ -97,9 +64,42 @@
         "instances",
         "zk_servers",
         "jvm_opts"
-      ],
-      "type": "object"
+      ]
+    },
+    "zookeeper": {
+      "type":"object",
+      "description": "ZooKeeper specific configuration properties",
+      "properties": {
+        "jvm_opts": {
+          "description": "JVM opts for Exhibitor",
+          "default": "-Xmx1G -Xms1G -XX:+PrintCommandLineFlags -XX:+PrintGC -XX:+PrintGCCause -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:+PrintTenuringDistribution -XX:+PrintAdaptiveSizePolicy -XX:+AlwaysPreTouch -Xss512k",
+          "type": "string"
+        },
+        "client-port": {
+          "description": "The port clients use to talk to the zookeeper cluster.",
+          "default": 2121,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "peer-port": {
+          "description": "The port zookeeper peers talk with eachother on.",
+          "default": 2888,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "leader-port": {
+          "description": "The port zookeeper peers talk to the leader on.",
+          "default": 3888,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "jvm_opts",
+        "client-port",
+        "peer-port",
+        "leader-port"
+      ]
     }
-  },
-  "type": "object"
+  }
 }

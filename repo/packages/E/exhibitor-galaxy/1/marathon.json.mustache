@@ -12,9 +12,9 @@
   "instances": 1,
   "ports": [
     {{exhibitor.http-port}},
-    {{exhibitor.zookeeper.client-port}},
-    {{exhibitor.zookeeper.peer-port}},
-    {{exhibitor.zookeeper.leader-port}}
+    {{zookeeper.client-port}},
+    {{zookeeper.peer-port}},
+    {{zookeeper.leader-port}}
   ],
   "requirePorts": true,
   "container": {
@@ -51,7 +51,7 @@
   ],
   "env": {
     "EXHIBITOR_JVM_OPTS": "{{exhibitor.jvm_opts}}",
-    "ZK_JVM_OPTS": "{{exhibitor.zookeeper.jvm_opts}}"
+    "ZK_JVM_OPTS": "{{zookeeper.jvm_opts}}"
   },
   "upgradeStrategy": {
     "minimumHealthCapacity": 0,
@@ -73,9 +73,9 @@
   "instances": 1,
   "ports": [
     {{exhibitor.http-port}},
-    {{exhibitor.zookeeper.client-port}},
-    {{exhibitor.zookeeper.peer-port}},
-    {{exhibitor.zookeeper.leader-port}}
+    {{zookeeper.client-port}},
+    {{zookeeper.peer-port}},
+    {{zookeeper.leader-port}}
   ],
   "requirePorts": true,
   "container": {
@@ -112,7 +112,7 @@
   ],
   "env": {
     "EXHIBITOR_JVM_OPTS": "{{exhibitor.jvm_opts}}",
-    "ZK_JVM_OPTS": "{{exhibitor.zookeeper.jvm_opts}}"
+    "ZK_JVM_OPTS": "{{zookeeper.jvm_opts}}"
   },
   "upgradeStrategy": {
     "minimumHealthCapacity": 0,
@@ -134,9 +134,9 @@
   "instances": 1,
   "ports": [
     {{exhibitor.http-port}},
-    {{exhibitor.zookeeper.client-port}},
-    {{exhibitor.zookeeper.peer-port}},
-    {{exhibitor.zookeeper.leader-port}}
+    {{zookeeper.client-port}},
+    {{zookeeper.peer-port}},
+    {{zookeeper.leader-port}}
   ],
   "requirePorts": true,
   "container": {
@@ -173,7 +173,7 @@
   ],
   "env": {
     "EXHIBITOR_JVM_OPTS": "{{exhibitor.jvm_opts}}",
-    "ZK_JVM_OPTS": "{{exhibitor.zookeeper.jvm_opts}}"
+    "ZK_JVM_OPTS": "{{zookeeper.jvm_opts}}"
   },
   "upgradeStrategy": {
     "minimumHealthCapacity": 0,
