@@ -16,7 +16,7 @@
       }
     },
     {
-      "currentVersion":"1.0.0.005",
+      "currentVersion":"1.0.0.006",
       "description":"ZooKeeper co-process for instance monitoring, backup/recovery, cleanup and visualization.",
       "framework":false,
       "name":"exhibitor-galaxy",
@@ -27,7 +27,7 @@
       ],
       "versions":{
         "0.8.1":"0",
-        "1.0.0.005":"1"
+        "1.0.0.006":"1"
       }
     },
     {
