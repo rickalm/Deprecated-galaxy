@@ -1,5 +1,5 @@
 {
   "pip": [
-      "https://s3.amazonaws.com/uptake-dcos-assets/dcos_spark-0.5.19.uptake-py2.py3-none-any.whl"
+      "https://downloads.mesosphere.com/spark/assets/dcos_spark-0.5.19-py2.py3-none-any.whl"
   ]
 }
