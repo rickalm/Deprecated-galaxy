@@ -79,6 +79,7 @@
 {{/security.ssl.enabled}}
     },
     "uris": [
+      "file:///etc/docker.tar.gz",
       "{{resource.assets.uris.jre-tar-gz}}",
       {{#hdfs.config-url}}
         "{{hdfs.config-url}}/config/hdfs-site.xml",
